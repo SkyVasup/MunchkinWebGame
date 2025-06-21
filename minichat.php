@@ -1,69 +1,119 @@
-<?php 
-if(!isset($_SESSION)){session_start();}
-//Для всех файлов
-require_once("global.php");
-require_once("my_function.php");
-require_once("modules/mysql.php");
+<?php
+// Этот файл больше не должен подключать global.php или стартовать сессию,
+// так как он теперь является частью gamemenu.php, где все уже инициализировано.
 
+// Функция для отображения чата
+function show_chat($mysql, $id_gt) {
+    if (!$id_gt) return;
+    $getlaststr = $mysql->sql_query("SELECT * FROM minichat WHERE game_id = ".intval($id_gt)." ORDER BY time DESC LIMIT 60");
+    if (!$getlaststr) return;
 
-function show_chat()
-{
-	global $mysql;
-	$getlaststr = $mysql->sql_query("SELECT * FROM minichat ORDER BY time DESC LIMIT 60");
-	while($chatarr[] = mysql_fetch_assoc($getlaststr))
-	{
-	}
-	krsort($chatarr);
-	foreach($chatarr as $chatdata)
-	{
-		if(strlen($chatdata["text"])>0)
-		{
-			$time = date("d/m H:i:s",$chatdata["time"]);
-			echo "[".$time."] [<a title=\"Профиль игрока\" class=\"clickablelogin\" href=\"javascript:showuser(".$chatdata["id_user"].")\" >".$chatdata["login"]."</a>] => : ".$chatdata["text"]."<br/>";
-		}
-	}
+    $chatarr = array();
+    while ($row = mysqli_fetch_assoc($getlaststr)) {
+        $chatarr[] = $row;
+    }
+    krsort($chatarr);
+    foreach ($chatarr as $chatdata) {
+        if (strlen($chatdata["text"]) > 0) {
+            $time = date("H:i", $chatdata["time"]);
+            echo "<div class='chat-message'>[{$time}] <strong>{$chatdata['login']}:</strong> {$chatdata['text']}</div>";
+        }
+    }
 }
 
-function add_str()
-{
-	global $mysql;
-	$message = $_REQUEST["send_text"];
-	$login = $_SESSION["login"];
-	$login .= "(".$_SESSION["level"].")";
-	$id_user = $_SESSION["id_user"];
-	$time = time();
-	$message=substr($message,0,256);
-	$message=htmlspecialchars($message, ENT_QUOTES);
+// Функция для добавления сообщения в чат
+function add_chat_message($mysql, $id_gt, $id_user, $login, $message) {
+    if (!$id_gt || !$id_user || empty(trim($message))) return;
+    
+    $time = time();
+    $message_safe = htmlspecialchars(substr($message, 0, 256), ENT_QUOTES);
 
-	//С помощью этих строк мы выделяем из реплики адреса сайтов и e-mail’ы.
-	$message = preg_replace("|(http://.[-a-zA-Z0-9@:%_+.~#?&//=]+?)|i","<a href=\"$1\" target=\"_blank\">$1</a>",$message);
-	$message = preg_replace("|(www\.[-a-zA-Z0-9@:%_+.~#?&//=]\.[a-z]{2,6})|i","<a href=\"$1\" target=\"_blank\">$1</a>",$message);
-	$message = preg_replace("|([-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6})|i","<a href=\"mailto:$1\">$1</a>", $message); 
-	$message = str_replace("[B]","<b>",$message);
-	$message = str_replace("[/B]","</b>",$message);
-	
-	if(strlen($message)>0)
-	{
-		$mysql->sql_query("INSERT INTO minichat VALUES ('$time', '$id_user', '$login', '$message')");
-	}
+    // Простое форматирование
+    $message_safe = str_replace(array('[B]', '[/B]'), array('<b>', '</b>'), $message_safe);
+
+    $mysql->sql_query("INSERT INTO minichat (time, id_user, login, text, game_id) VALUES ($time, $id_user, '".addslashes($login)."', '".addslashes($message_safe)."', ".intval($id_gt).")");
 }
 
-if (isset($_REQUEST['send_com_forum'])){
-      if (isset($_SESSION['id_user'])){				
-			  //Выводи сообщение от пльзователя к пользователю
-			  if (strcmp('1',$_REQUEST['send_com_forum'])==0) {
-				  if (isset($_REQUEST['send_text'])){                  
-					  if (!empty($_REQUEST['send_text'])){                        
-							add_str();
-							unset($_REQUEST['send_text']);  
-					  }
-				  }
-				  show_chat();
-			  //Обновляем сообщения
-			  }elseif (strcmp('2',$_REQUEST['send_com_forum'])==0){
-					  show_chat();  
-					  unset($_REQUEST['send_text']);    
-			  }  
-        } 
+
+// AJAX обработчик для чата.
+// Этот блок будет работать, только если пришел AJAX-запрос к самому файлу minichat.php
+if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+    
+    session_start();
+    require_once("global.php");
+    require_once("modules/mysql.php");
+    $mysql = new MySQL();
+
+    $id_gt = $_REQUEST['game_id'] ?? 0;
+    $id_user = $_SESSION['id_user'] ?? 0;
+    $login = $_SESSION['login'] ?? '';
+    $action = $_POST['action'] ?? '';
+    
+    if ($action === 'send' && !empty($_POST['text'])) {
+        add_chat_message($mysql, $id_gt, $id_user, $login, $_POST['text']);
+    }
+
+    // В любом случае (и после отправки) показываем обновленный чат
+    show_chat($mysql, $id_gt);
+    exit();
 }
+
+// Если это не AJAX, то это, скорее всего, подключение из gamemenu.php.
+// В этом случае мы просто встраиваем HTML-разметку чата.
 ?>
+
+<div id="chat-container" style="height: 200px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px; margin-bottom: 5px;">
+    <!-- Сообщения чата будут загружены сюда -->
+</div>
+<form id="chat-form">
+    <input type="text" id="chat-message-input" style="width: 80%;" autocomplete="off" placeholder="Введите сообщение...">
+    <button type="submit">Отправить</button>
+</form>
+
+<script>
+$(document).ready(function() {
+    const GAME_ID = <?php echo json_encode($id_gt); ?>;
+
+    function updateChat() {
+        if (!GAME_ID) return;
+        $.ajax({
+            url: 'minichat.php',
+            type: 'POST',
+            data: { 
+                game_id: GAME_ID,
+                action: 'get'
+            },
+            success: function(response) {
+                $('#chat-container').html(response);
+                // Прокрутка вниз
+                $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+            }
+        });
+    }
+
+    $('#chat-form').submit(function(e) {
+        e.preventDefault();
+        const message = $('#chat-message-input').val();
+        if (message.trim() === '') return;
+
+        $.ajax({
+            url: 'minichat.php',
+            type: 'POST',
+            data: {
+                game_id: GAME_ID,
+                action: 'send',
+                text: message
+            },
+            success: function(response) {
+                $('#chat-container').html(response);
+                $('#chat-message-input').val('');
+                 $('#chat-container').scrollTop($('#chat-container')[0].scrollHeight);
+            }
+        });
+    });
+
+    // Первоначальная загрузка и периодическое обновление
+    updateChat();
+    setInterval(updateChat, 3000); // Обновлять каждые 3 секунды
+});
+</script>

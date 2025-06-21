@@ -511,7 +511,7 @@ function preparse_tags($text, &$errors, $is_signature = false)
 //
 // Preparse the contents of [list] bbcode
 //
-function preparse_list_tag($content, $type = '*', &$errors)
+function preparse_list_tag($content, &$errors, $type = '*')
 {
 	global $lang_common;
 
@@ -521,7 +521,7 @@ function preparse_list_tag($content, $type = '*', &$errors)
 	if (strpos($content,'[list') !== false)
 	{
 		$pattern = array('%\[list(?:=([1a*]))?+\]((?:(?>.*?(?=\[list(?:=[1a*])?+\]|\[/list\]))|(?R))*)\[/list\]%ise');
-		$replace = array('preparse_list_tag(\'$2\', \'$1\', $errors)');
+		$replace = array('preparse_list_tag(\'$2\', $errors, \'$1\')');
 		$content = preg_replace($pattern, $replace, $content);
 	}
 
@@ -536,6 +536,7 @@ function preparse_list_tag($content, $type = '*', &$errors)
 
 	return '[list='.$type.']'."\n".$content.'[/list]';
 }
+
 
 
 //

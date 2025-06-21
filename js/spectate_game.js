@@ -29,7 +29,7 @@ function main_body_game(){
 				  cache:false, 
 				  success: function(json_data){ 
 						if (json_data.length!==0){
-							var data = eval( '(' + json_data + ')' ); 
+							var data = JSON.parse(json_data); 
 							$("#mess_place").html(data.chat_text); 
 						}																																	  
 				  }

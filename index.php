@@ -6,6 +6,8 @@ require_once("modules/mysql.php");
 require_once("modules/functions.php");
 require_once("stat.php");
 
+$mysql = new mysql(); // Инициализируем объект для работы с БД
+
 $loginerror = "";
 
 //Выход с сайта
@@ -97,7 +99,6 @@ if(isset($_SESSION['id_user']))
 							<a class="topmenu" title="Правила настольного манчкина" href="index.php?gamerule">Правила игры</a>
 							<a class="topmenu" title="Как играть на этом сайте?" href="index.php?help">Справка</a>
 							<a class="topmenu" title="Права на игру" href="index.php?rights">Права/rights</a>
-							<a class="topmenu" title="Кто разработал игру" href="index.php?about">О нас/about us</a>
 							<a class="topmenu" title="Перейти на форум" href="./forum">Форум</a>
 						</tr>
 					</table>
@@ -122,26 +123,6 @@ if(isset($_SESSION['id_user']))
 				?>
 				</td>
 				<td align="center" valign="top" width="200px" valign="undefined">
-					<table class="authtable">						
-						<tr>
-							<td>Сервер запущен:12/04/11<hr></td>
-						</tr>
-						<tr>
-							<td>Зарегистрировано:<?php echo mysql_num_rows($mysql->sql_query("SELECT * FROM users")); ?></td>
-						</tr>
-						<tr>
-							<td>Активных:<?php echo mysql_num_rows($mysql->sql_query("SELECT * FROM users WHERE (active>=".(time()-(5*24*3600)).")")); ?></td>
-						</tr>							
-						<tr>
-							<td><a style="text-decoration:underline;" href="whoonline.htm">Онлайн</a>:<?php echo mysql_num_rows($mysql->sql_query("SELECT * FROM users WHERE (active>=".(time()-180).")")); ?></td>
-						</tr>
-						<tr>
-							<td><a style="text-decoration:underline;" title="Созданные столы" href="watch.htm">Смотреть игры</a> (<?php echo mysql_num_rows($mysql->sql_query("SELECT * FROM game_tables")); ?>)</td>
-						</tr>
-						<tr>
-							<td><a style="text-decoration:underline;" title="Созданные столы" href="best.htm">Доска почета</a></td>
-						</tr>
-					</table>
 					<br>
 					<?php
 					if (isset($_SESSION['id_user']) && isset($_SESSION['login']))
@@ -160,11 +141,11 @@ if(isset($_SESSION['id_user']))
 									<a title="Мои данные" href="index.php?profile=my">Личный кабинет</a>
 									<?php 
 									$get_new_msg = $mysql->sql_query("SELECT * FROM messages WHERE `to`='".$_SESSION['id_user']."' AND isread=0");
-									$new_msg_cnt = mysql_num_rows($get_new_msg); 
+									$new_msg_cnt = mysqli_num_rows($get_new_msg); 
 									if($new_msg_cnt>0){echo "<br/><small style=\"color:red\">(Новые сообщения: $new_msg_cnt)</small>";}
 									
 									$getnewfriends = $mysql->sql_query("SELECT * FROM friends WHERE user2='".$_SESSION['id_user']."' AND status=0  ORDER BY id DESC");
-									$countfriends = mysql_num_rows($getnewfriends);
+									$countfriends = mysqli_num_rows($getnewfriends);
 									if($countfriends>0){echo "<br/><small style=\"color:red\">(Новые друзья: $countfriends)</small>";}
 									?>
 								</td>
@@ -205,7 +186,7 @@ if(isset($_SESSION['id_user']))
 								<td><a title="Перейти к восстановлению пароля" href="restore.htm">Забыли пароль?</a></td>
 							</tr>
 							<tr>
-								<td><b><a title="Перейти к форме регистрации на сайте" href="register.htm">Зарегистрироваться</a></b></td>
+								<td><b><a title="Перейти к форме регистрации на сайте" href="index.php?register">Зарегистрироваться</a></b></td>
 							</tr>
 						</table>
 						</form> 
@@ -221,7 +202,7 @@ if(isset($_SESSION['id_user']))
 						<td>
 						<?php
 						$getlastnews = $mysql->sql_query("SELECT * FROM forum_posts WHERE topic_id=2 ORDER BY id DESC LIMIT 3");
-						while($ndata = mysql_fetch_assoc($getlastnews))
+						while($ndata = mysqli_fetch_assoc($getlastnews))
 						{
 							$ndata["message"] = str_replace("\n","<br/>",$ndata["message"]);
 							?>
@@ -239,7 +220,6 @@ if(isset($_SESSION['id_user']))
 		</tr>
 		<tr>
 			<td>
-				<center>FunCardGame &copy; 2011</center>
 			</td>
 		</tr>
 	</tbody>

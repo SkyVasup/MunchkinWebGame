@@ -103,4 +103,32 @@ function server_parse($socket, $response, $line = __LINE__) {
     return true;
 }
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+$mail = new PHPMailer(true);
+try {
+    $mail->isSMTP();
+    $mail->Host = 'smtp.yandex.ru';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'ваш_логин@yandex.ru';
+    $mail->Password = 'ваш_пароль';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+
+    $mail->setFrom('ваш_логин@yandex.ru', 'Munchkin Online');
+    $mail->addAddress('получатель@почта.ру');
+    $mail->Subject = 'Тема письма';
+    $mail->Body    = 'Текст письма';
+
+    $mail->send();
+    echo 'Письмо отправлено!';
+} catch (Exception $e) {
+    echo 'Ошибка отправки: ', $mail->ErrorInfo;
+}
+
 ?>

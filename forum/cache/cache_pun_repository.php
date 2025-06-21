@@ -141,11 +141,11 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_approval',
     'title' => 'Post and registration approval',
-    'version' => '1.4.2',
+    'version' => '1.4.3',
     'description' => 'Allows to control all new posts and registrations and approve them',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
-    'maxtestedon' => '1.3.4',
+    'maxtestedon' => '1.3.5',
   ),
   'pun_attachment' => 
   array (
@@ -157,11 +157,11 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_attachment',
     'title' => 'Attachment',
-    'version' => '1.0.3',
+    'version' => '1.0.5',
     'description' => 'Allows users to attach files to posts.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
-    'maxtestedon' => '1.3.4',
+    'maxtestedon' => '1.3.5',
     'note' => 
     array (
       1 => 
@@ -210,7 +210,7 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_colored_usergroups',
     'title' => 'Colored usergroups',
-    'version' => '1.0.3',
+    'version' => '1.0.4',
     'description' => 'This extension allows setting specific colors for user groups\'.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
@@ -274,7 +274,7 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_karma',
     'title' => 'Post karma',
-    'version' => '1.1.1',
+    'version' => '1.1.2',
     'description' => 'Adds karma/reputation to posts.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
@@ -306,11 +306,11 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_pm',
     'title' => 'Private Messaging',
-    'version' => '1.2.9',
+    'version' => '1.2.10',
     'description' => 'Allows users to send private messages. This is the first simple version with minimum functions.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
-    'maxtestedon' => '1.3.4',
+    'maxtestedon' => '1.3.5',
     'note' => 
     array (
       3 => 
@@ -406,11 +406,11 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_repository',
     'title' => 'PunBB Repository',
-    'version' => '1.2.3',
+    'version' => '1.2.4',
     'description' => 'Feel free to download and install extensions from PunBB repository.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3dev',
-    'maxtestedon' => '1.3.4',
+    'maxtestedon' => '1.3.5',
     'note' => 
     array (
       6 => 
@@ -450,7 +450,7 @@ $pun_repository_extensions = array (
     ),
     'id' => 'pun_tags',
     'title' => 'Pun tags',
-    'version' => '1.5',
+    'version' => '1.5.1',
     'description' => 'Topics are taggable now.',
     'author' => 'PunBB Development Team',
     'minversion' => '1.3',
@@ -458,6 +458,6 @@ $pun_repository_extensions = array (
   ),
 );
 
-$pun_repository_extensions_timestamp = 1304657063;
+$pun_repository_extensions_timestamp = 1749245141;
 
 ?>

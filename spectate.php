@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-die("Функция временно недоступна");
+//die("Функция временно недоступна");
 
 //Для всех файлов
 require_once("global.php");
@@ -69,10 +69,9 @@ if(is_numeric($tableid))
 Выйти
 </div>
 
-
-<?php
-
-show_table();
+<div id="spectate-container">
+    <?php show_table(); ?>
+</div>
 
 ?>
 <!-- Yandex.Metrika counter -->

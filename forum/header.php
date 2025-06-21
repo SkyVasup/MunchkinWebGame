@@ -305,8 +305,9 @@ $tpl_main = str_replace(array_keys($main_elements),  array_values($main_elements
 unset($main_elements);
 
 // END MAIN SECTION INTERFACE ELEMENT SUBSTITUTION
-require_once("../modules/mysql.php");
-require_once("../stat.php");
+require_once __DIR__ . '/../modules/mysql.php'; // или относительный путь от текущего файла
+//require_once('../stat.php'); // если stat.php в корне MunchkinOnline
+
 
 ($hook = get_hook('hd_end')) ? eval($hook) : null;
 

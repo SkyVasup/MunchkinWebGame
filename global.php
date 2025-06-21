@@ -1,17 +1,17 @@
-<?php require_once("config.php");?>
-<?
-function connectdb()
-{
-  /* connect to database - and if we can't stop right there */
-  global $dbhost;
-  global $dbport;
-  global $dbuname;
-  global $dbpass;
-  global $dbname;
-  $DBLink=mysql_connect($dbhost . ":" .$dbport, $dbuname, $dbpass);
-  @mysql_select_db("$dbname") or die ("Unable to select database.");
-  mysql_query("set names utf8");
-  return $DBLink;
+<?php
+// Единая точка для старта сессии. Проверяем, не была ли она уже запущена.
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
 
+// Подключаем конфигурацию один раз.
+require_once("config.php");
+// Подключаем наш новый класс для работы с БД.
+require_once("modules/mysql.php");
+
+// Создаем единственный, глобальный объект для работы с базой данных.
+// Все остальные файлы должны использовать эту переменную $mysql, а не создавать свою.
+$mysql = new MySQL();
+
+// Старую функцию connectdb() удаляем, она больше не нужна и вызывает ошибки.
 ?>

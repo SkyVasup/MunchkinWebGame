@@ -49,6 +49,7 @@ switch ($db_type)
 		error('\''.$db_type.'\' is not a valid database type. Please check settings in config.php.', __FILE__, __LINE__);
 		break;
 }
+$forum_db = new DBLayer($db_host, $db_username, $db_password, $db_name, $db_prefix, $p_connect);
 
 
 // Create the database adapter object (and open/connect to/select db)

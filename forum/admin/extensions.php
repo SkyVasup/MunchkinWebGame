@@ -843,7 +843,20 @@ else
 		$update_hour = (isset($forum_ext_versions_update_cache) && (time() - $forum_ext_versions_update_cache > 60 * 60));
 
 		// Update last versions if there is no cahe or some extension was added/removed or one day has gone since last update
-		$update_new_versions_cache = !defined('FORUM_EXT_VERSIONS_LOADED') || (isset($forum_ext_last_versions) && array_diff($inst_exts, $forum_ext_last_versions) != array()) || $update_hour  || ( $update_hour && isset($min_timestamp) && (time() - $min_timestamp > 60*60*24));
+$update_new_versions_cache = !defined('FORUM_EXT_VERSIONS_LOADED') 
+    || (isset($forum_ext_last_versions) 
+        && is_array($inst_exts) 
+        && is_array($forum_ext_last_versions) 
+        && array_diff(array_keys($inst_exts), array_keys($forum_ext_last_versions)) !== array()) 
+    || $update_hour  
+    || ($update_hour && isset($min_timestamp) && (time() - $min_timestamp > 60*60*24));
+
+		if (is_array($forum_ext_last_versions)) {
+   		echo 'Последняя версия: ' . $forum_ext_last_versions['pun_repository']['version'];
+
+
+		}
+
 
 		($hook = get_hook('aex_before_update_checking')) ? eval($hook) : null;
 
@@ -892,7 +905,8 @@ else
 	$d = dir(FORUM_ROOT.'extensions');
 	while (($entry = $d->read()) !== false)
 	{
-		if ($entry{0} != '.' && is_dir(FORUM_ROOT.'extensions/'.$entry))
+		if ($entry[0] != '.' && is_dir(FORUM_ROOT.'extensions/'.$entry))
+
 		{
 			if (preg_match('/[^0-9a-z_]/', $entry))
 			{
@@ -1027,7 +1041,14 @@ else
 	</div>
 <?php
 
-	($hook = get_hook('aex_section_manage_end')) ? eval($hook) : null;
+	if ($hook = get_hook('aex_section_manage_end')) {
+    try {
+        eval($hook);
+    } catch (Throwable $e) {
+        echo '<pre>Hook error: '.$e->getMessage().'</pre>';
+    }
+}
+
 
 	$tpl_temp = forum_trim(ob_get_contents());
 	$tpl_main = str_replace('<!-- forum_main -->', $tpl_temp, $tpl_main);

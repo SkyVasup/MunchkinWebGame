@@ -1,0 +1,350 @@
+[DEBUG CARD] Array
+(
+    [id_cd] => 138947
+    [num_door] => 0
+    [id_card] => 49
+    [id_gt] => 1725
+    [name] => Курица на башне
+    [type] => curse
+    [card_name] => Курица на башне
+    [card_type] => curse
+    [text] => Курица на башне
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1725
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+[ERROR] Вы уже открывали дверь в этом ходу!
+[ERROR] Вы уже открывали дверь в этом ходу!
+[ERROR] Вы уже открывали дверь в этом ходу!
+[ERROR] Вы уже открывали дверь в этом ходу!
+[DEBUG CARD] Array
+(
+    [id_cd] => 139054
+    [num_door] => 0
+    [id_card] => 21
+    [id_gt] => 1726
+    [name] => Белые братья
+    [type] => monster
+    [card_name] => Белые братья
+    [card_type] => monster
+    [text] => Белые братья
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => open_door
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 2
+            [login] => 321
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => pass_turn
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 1
+            [login] => 123
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => fight
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 1
+            [login] => 123
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => end_turn
+        )
+
+)
+
+Array
+(
+    [profile] => join
+    [id] => 1726
+    [session] => Array
+        (
+            [id_user] => 1
+            [login] => 123
+            [sex] => man
+            [level] => 1
+        )
+
+    [post] => Array
+        (
+            [do] => pass_turn
+        )
+
+)
+
+[DEBUG CARD] Array
+(
+    [id_cd] => 139071
+    [num_door] => 0
+    [id_card] => 65
+    [id_gt] => 1726
+    [name] => 3872 орка
+    [type] => monster
+    [card_name] => 3872 орка
+    [card_type] => monster
+    [text] => 3872 орка
+)
+
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=null
+id_user=2, id_gt=null, GET[id]=1726
+id_user=2, id_gt=null, GET[id]=1726

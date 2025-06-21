@@ -107,7 +107,8 @@ $db_version = $forum_db->get_version();
 // Collect some additional info about MySQL
 if ($db_type == 'mysql' || $db_type == 'mysqli')
 {
-	$db_version = 'MySQL '.$db_version;
+	$db_version = $db_version['name'] . ' ' . $db_version['version'];
+
 
 	// Calculate total db size/row count
 	$result = $forum_db->query('SHOW TABLE STATUS FROM `'.$db_name.'` LIKE \''.$db_prefix.'%\'') or error(__FILE__, __LINE__);

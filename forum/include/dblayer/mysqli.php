@@ -27,28 +27,35 @@ class DBLayer
 	);
 
 
-	function DBLayer($db_host, $db_username, $db_password, $db_name, $db_prefix, $foo)
-	{
-		$this->prefix = $db_prefix;
+public function __construct($db_host, $db_username, $db_password, $db_name, $db_prefix, $foo)
+{
+    $this->prefix = $db_prefix;
 
-		// Was a custom port supplied with $db_host?
-		if (strpos($db_host, ':') !== false)
-			list($db_host, $db_port) = explode(':', $db_host);
+    // Was a custom port supplied with $db_host?
+    if (strpos($db_host, ':') !== false) {
+        list($db_host, $db_port) = explode(':', $db_host);
+    }
 
-		if (isset($db_port))
-			$this->link_id = @mysqli_connect($db_host, $db_username, $db_password, $db_name, $db_port);
-		else
-			$this->link_id = @mysqli_connect($db_host, $db_username, $db_password, $db_name);
+    if (isset($db_port)) {
+        $this->link_id = @mysqli_connect($db_host, $db_username, $db_password, $db_name, $db_port);
+    } else {
+        $this->link_id = @mysqli_connect($db_host, $db_username, $db_password, $db_name);
+    }
 
-		if (!$this->link_id)
-			error('Unable to connect to MySQL and select database. MySQL reported: '.mysqli_connect_error(), __FILE__, __LINE__);
+    if (!$this->link_id) {
+        error_log("Ошибка подключения к БД: " . mysqli_connect_error());
+        file_put_contents('db_debug.log', "MYSQL ERROR: " . mysqli_connect_error() . "\n", FILE_APPEND);
+        die('Не удалось подключиться к БД');
+    }
 
-		// Setup the client-server character set (UTF-8)
-		if (!defined('FORUM_NO_SET_NAMES'))
-			$this->set_names('utf8');
+    // Setup the client-server character set (UTF-8)
+    if (!defined('FORUM_NO_SET_NAMES')) {
+        $this->set_names('utf8');
+    }
 
-		return $this->link_id;
-	}
+    return $this->link_id;
+}
+
 
 
 	function start_transaction()
@@ -238,18 +245,19 @@ class DBLayer
 	}
 
 
-	function close()
+function close()
+{
+	if ($this->link_id)
 	{
-		if ($this->link_id)
-		{
-			if ($this->query_result)
-				@mysqli_free_result($this->query_result);
+		if ($this->query_result instanceof mysqli_result)
+			@mysqli_free_result($this->query_result);
 
-			return @mysqli_close($this->link_id);
-		}
-		else
-			return false;
+		return @mysqli_close($this->link_id);
 	}
+	else
+		return false;
+}
+
 
 
 	function set_names($names)

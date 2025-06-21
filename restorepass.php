@@ -29,7 +29,7 @@ if($_GET["restore"]=="try")
 				Логин:
 			</td>
 			<td>
-				<input type="text" name="restorelogin" value="<?=$_POST["restorelogin"] ?>" />
+				<input type="text" name="restorelogin" value="<?= isset($_POST["restorelogin"]) ? $_POST["restorelogin"] : '' ?>" />
 			</td>
 		</tr>
 		<tr>
@@ -37,7 +37,7 @@ if($_GET["restore"]=="try")
 				E-mail:
 			</td>
 			<td>
-				<input type="text" name="restoreemail" value="<?=$_POST["restoreemail"] ?>" />
+				<input type="text" name="restoreemail" value="<?= isset($_POST["restoreemail"]) ? $_POST["restoreemail"] : '' ?>" />
 			</td>
 		</tr>
 		<tr>
@@ -145,7 +145,7 @@ http://funcardgame.ru/$linktorestore
 				$exp_time = time() + 5*24*60*60;
 				$mysql->sql_query("DELETE FROM restorepass WHERE id_user=".$row_udata["id_user"].";");
 				$mysql->sql_query("INSERT INTO restorepass VALUES (".$row_udata["id_user"].", '$key', $exp_time); ");
-				echo "<script>alert('На указанный вами почтовый ящик было отправлено письмо со ссылкой для смены пароля. У вас 5 дней!'); location.href='/index.htm'</script>";
+				echo "<script>alert('На указанный вами почтовый ящик было отправлено письмо со ссылкой для смены пароля. У вас 5 дней!'); location.href='index.php'</script>";
 			}
 			else
 			{
@@ -242,7 +242,7 @@ if($_GET["restore"]=="go" && isset($_GET["key"]) && isset($_GET["user"]))
 			{
 				$mysql->sql_query("UPDATE users SET pass='$newpass1' WHERE id_user='$restoreid' ");
 				$mysql->sql_query("DELETE FROM restorepass WHERE id_user='$restoreid' ");
-				echo "<script>alert('Ваш пароль изменен. Используйте его для входа!'); location.href='/index.htm'</script>";
+				echo "<script>alert('Ваш пароль изменен. Используйте его для входа!'); location.href='index.php'</script>";
 			}
 		}
 	}

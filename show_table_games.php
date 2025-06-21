@@ -3,6 +3,8 @@ require_once("global.php");
 require_once("init_game.php");
 require_once("modules/mysql.php");
 
+file_put_contents('debug_post.txt', 'id_user=' . ($_SESSION['id_user'] ?? 'null') . ', id_gt=' . ($_SESSION['id_gt'] ?? 'null') . ', GET[id]=' . ($_GET['id'] ?? 'null') . PHP_EOL, FILE_APPEND);
+
 function print_result($result,$button)
 {
 	$mysql = new MySQL;
@@ -356,6 +358,10 @@ if (isset($_REQUEST['send_com']))
 			your_table();  
 		}
 	}
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['do'] === 'open_door') {
+    // This block will be executed if the request method is POST and the do parameter is open_door
 }
 
 ?>

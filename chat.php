@@ -1,9 +1,10 @@
 <?php
-if(!isset($_SESSION)){session_start();}
+if (!isset($_SESSION)) session_start();
 
 require_once("global.php");
 require_once("my_function.php");
 require_once("modules/mysql.php");
+ // ← обязательно!
 
 //error_reporting(0);
 

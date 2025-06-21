@@ -776,7 +776,8 @@ function sef_friendly($str)
 		return $return;
 
 	$str = strtr($str, $lang_url_replace);
-	$str = strtolower(utf8_decode($str));
+	$str = mb_strtolower(mb_convert_encoding($str, 'UTF-8', 'UTF-8'));
+
 	$str = forum_trim(preg_replace(array('/[^a-z0-9\s]/', '/[\s]+/'), array('', '-'), $str), '-');
 
 	foreach ($forum_reserved_strings as $match => $replace)
@@ -1650,7 +1651,7 @@ function get_tracked_topics()
 		{
 			case 'f': $type = 'forums'; break;
 			case 't': $type = 'topics'; break;
-			default: continue;
+			default: continue 2;
 		}
 
 		$id = intval(substr($id_data, 1));
