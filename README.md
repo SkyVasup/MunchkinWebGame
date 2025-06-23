@@ -12,3 +12,4 @@ Frontend is based on Javascript and plugins, backend is PHP, Apache, MySQL. Data
 Была создана в 2011 году просто ради интереса. Игра поставляется "Как есть", мы не несем ответственность за ошибки, недоработки,
 сгоревшие сервера и ужас от качества написанного кода.
 Фронтенд - Javascript + плагины, бэкенд - PHP, Apache, MySQL. Дамп базы включен в репозиторий.
+# MuchkinWebGame
